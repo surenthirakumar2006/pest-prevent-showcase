@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import heroHome from "@/assets/hero-home.jpg";
 import { Reveal } from "@/components/Reveal";
+import { BugOff, Bug, Wind, ShieldAlert, Car, Home, Building2, Factory, BedDouble, Hospital, GraduationCap, Utensils, Wine, CheckCircle2, MessageCircle, Quote, Star, ShieldCheck, PhoneCall, ChevronDown } from "lucide-react";
 
 const PHONE = "+917010976603";
 const PHONE_DISPLAY = "+91 70109 76603";
@@ -14,7 +15,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Safe, eco-friendly and guaranteed pest control in Chennai since 2012. Termite, cockroach, mosquito, rat and car anti-rat treatments. Book a free inspection.",
+          "Safe, eco-friendly and guaranteed pest control in Chennaic since 2012. Termite, cockroach, mosquito, rat and car anti-rat treatments. Book a free inspection.",
       },
       { property: "og:title", content: "Global Elite Pest Management | Chennai's Trusted Pest Control" },
       {
@@ -130,12 +131,12 @@ function Hero() {
       <div className="mx-auto grid max-w-7xl items-center gap-16 px-6 lg:grid-cols-2">
         <div>
           <Reveal>
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/5 px-3 py-1 backdrop-blur">
-              <span className="relative flex size-2">
-                <span className="absolute inline-flex size-full animate-ring rounded-full bg-primary" />
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 backdrop-blur">
+              <span className="relative flex size-3 items-center justify-center">
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-primary opacity-75" />
                 <span className="relative inline-flex size-2 rounded-full bg-primary" />
               </span>
-              <span className="font-mono text-[10px] uppercase tracking-wider text-primary">
+              <span className="font-mono text-[10px] uppercase tracking-widest text-primary font-bold">
                 Trusted since 2012 · Chennai's #1 rated pest experts
               </span>
             </div>
@@ -248,48 +249,52 @@ function Marquee() {
 }
 
 const SERVICES = [
-  ["🐜", "Termite Control", "Deep-penetration treatment that eliminates colonies and safeguards wooden structures for years."],
-  ["🪳", "Cockroach Control", "Gel-based, odourless treatment reaching hidden nests in kitchens, bathrooms and offices."],
-  ["🦟", "Mosquito Treatment", "Fogging + larvicide programs that break the breeding cycle indoors and outdoors."],
-  ["🐀", "Rat Control", "Bait-station and exclusion strategy to remove rodents without harm to pets or children."],
-  ["🚗", "Car Anti-Rat Spray", "Specialised herbal spray to protect vehicle wiring and interiors from rodent damage."],
-  ["🏠", "Residential Pest Control", "Whole-home protection plans tailored to Chennai apartments, villas and independent houses."],
-  ["🏢", "Commercial Pest Control", "Scheduled service contracts for offices, showrooms and retail spaces — zero disruption."],
-  ["🏭", "Factory Pest Control", "Industrial-grade solutions for warehouses, factories and manufacturing floors."],
-  ["🏨", "Hotel Pest Control", "Discreet, guest-safe programs meeting hospitality hygiene standards."],
-  ["🏥", "Hospital Pest Control", "Certified protocols for hospitals and clinics — medical-grade safety compliance."],
-  ["🏫", "School Pest Control", "Child-safe treatments delivered during off-hours across schools and campuses."],
-  ["🍽", "Restaurant Pest Control", "HACCP-aligned kitchen treatments protecting your reputation and rating."],
-] as const;
+  { icon: BugOff, title: "Termite Control", desc: "Deep-penetration treatment that eliminates colonies and safeguards wooden structures for years." },
+  { icon: Bug, title: "Cockroach Control", desc: "Gel-based, odourless treatment reaching hidden nests in kitchens, bathrooms and offices." },
+  { icon: Wind, title: "Mosquito Treatment", desc: "Fogging + larvicide programs that break the breeding cycle indoors and outdoors." },
+  { icon: ShieldAlert, title: "Rat Control", desc: "Bait-station and exclusion strategy to remove rodents without harm to pets or children." },
+  { icon: Car, title: "Car Anti-Rat Spray", desc: "Specialised herbal spray to protect vehicle wiring and interiors from rodent damage." },
+  { icon: Home, title: "Residential Pest Control", desc: "Whole-home protection plans tailored to Chennai apartments, villas and independent houses." },
+  { icon: Building2, title: "Commercial Pest Control", desc: "Scheduled service contracts for offices, showrooms and retail spaces — zero disruption." },
+  { icon: Factory, title: "Factory Pest Control", desc: "Industrial-grade solutions for warehouses, factories and manufacturing floors." },
+  { icon: BedDouble, title: "Hotel Pest Control", desc: "Discreet, guest-safe programs meeting hospitality hygiene standards." },
+  { icon: Hospital, title: "Hospital Pest Control", desc: "Certified protocols for hospitals and clinics — medical-grade safety compliance." },
+  { icon: GraduationCap, title: "School Pest Control", desc: "Child-safe treatments delivered during off-hours across schools and campuses." },
+  { icon: Utensils, title: "Restaurant Pest Control", desc: "HACCP-aligned kitchen treatments protecting your reputation and rating." },
+  { icon: Wine, title: "Restro Bar Pest Control", desc: "Discreet, high-efficacy treatments tailored for bars and pubs to maintain hygiene and protect inventory." },
+];
 
 function Services() {
   return (
-    <section id="services" className="bg-card py-32">
+    <section id="services" className="relative overflow-hidden bg-card py-32">
+      <div className="pointer-events-none absolute inset-x-0 -top-40 -z-10 h-[42rem] aurora opacity-20" />
       <div className="mx-auto max-w-7xl px-6">
         <Reveal>
-          <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <div className="max-w-2xl">
-              <h2 className="mb-4 font-mono text-xs uppercase tracking-[0.3em] text-primary">Our Services</h2>
-              <h3 className="text-4xl font-bold tracking-tight text-card-foreground">
-                Complete pest protection, for every environment.
-              </h3>
-            </div>
-            <div className="mx-12 mb-4 hidden h-px flex-1 bg-border md:block" />
+          <div className="mb-20 flex flex-col items-center text-center">
+            <h2 className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 font-mono text-xs uppercase tracking-[0.3em] text-primary backdrop-blur">
+              <span className="size-1.5 animate-pulse rounded-full bg-primary" />
+              Our Services
+            </h2>
+            <h3 className="max-w-3xl text-balance text-4xl font-extrabold tracking-tight text-card-foreground md:text-5xl">
+              Complete pest protection, for every environment.
+            </h3>
           </div>
         </Reveal>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {SERVICES.map(([icon, title, description], i) => (
-            <Reveal key={title} delay={(i % 3) * 100}>
-              <div className="card-lift group relative h-full overflow-hidden rounded-3xl border border-border bg-background p-8 hover:border-primary/30">
-                <div className="pointer-events-none absolute -right-16 -top-16 size-40 rounded-full bg-primary/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
-                <div className="mb-6 flex size-12 items-center justify-center rounded-2xl bg-primary/10 text-2xl transition-all duration-500 group-hover:rotate-6 group-hover:bg-primary/20">
-                  <span aria-hidden>{icon}</span>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {SERVICES.map(({ icon: Icon, title, desc }, i) => (
+            <Reveal key={title} delay={(i % 4) * 100}>
+              <div className="card-lift group relative flex h-full flex-col justify-between overflow-hidden rounded-[2rem] border border-border bg-background/50 p-8 hover:border-primary/40 hover:bg-background">
+                <div className="pointer-events-none absolute -right-16 -top-16 size-40 rounded-full bg-primary/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:animate-pulse group-hover:opacity-100" />
+                <div>
+                  <div className="mb-6 inline-flex size-14 items-center justify-center rounded-2xl border border-border bg-card shadow-sm transition-all duration-500 group-hover:-translate-y-2 group-hover:scale-110 group-hover:rotate-[12deg] group-hover:border-primary/40 group-hover:bg-primary/10 group-hover:shadow-lg group-hover:shadow-primary/20">
+                    <Icon className="size-6 text-foreground transition-all duration-500 group-hover:text-primary" />
+                  </div>
+                  <h4 className="mb-3 text-lg font-bold tracking-tight text-card-foreground transition-colors group-hover:text-primary">{title}</h4>
+                  <p className="mb-6 text-sm leading-relaxed text-muted-foreground">{desc}</p>
                 </div>
-                <h4 className="mb-3 text-xl font-bold text-card-foreground">{title}</h4>
-                <p className="mb-6 text-sm leading-relaxed text-muted-foreground">{description}</p>
-                <a href="#contact" className="font-mono text-xs font-semibold tracking-wide text-primary">
-                  Learn more →
+                <a href="#contact" className="mt-auto inline-flex items-center gap-2 font-mono text-xs font-semibold tracking-wide text-primary opacity-80 transition-all hover:opacity-100 group-hover:gap-3">
+                  Book Service <span className="transition-transform group-hover:translate-x-1">→</span>
                 </a>
               </div>
             </Reveal>
@@ -330,8 +335,9 @@ function About() {
               {HIGHLIGHTS.map((h) => (
                 <span
                   key={h}
-                  className="rounded-full border border-border bg-card px-4 py-2 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
+                  className="group flex cursor-default items-center gap-2 rounded-full border border-border bg-background/50 px-4 py-2 text-xs font-medium text-muted-foreground transition-all hover:border-primary/40 hover:bg-card hover:text-primary hover:shadow-lg hover:shadow-primary/5"
                 >
+                  <CheckCircle2 className="size-3 text-primary/70 transition-transform group-hover:scale-110 group-hover:text-primary" />
                   {h}
                 </span>
               ))}
@@ -349,11 +355,12 @@ function About() {
               { to: 98, suffix: "%", label: "Customer Retention" },
               { to: 30, suffix: "min", label: "Response Time" },
             ].map((s) => (
-              <div key={s.label} className="rounded-2xl border border-border bg-card/60 p-6 text-center backdrop-blur">
-                <div className="text-3xl font-extrabold tracking-tight text-primary">
+              <div key={s.label} className="card-lift group relative overflow-hidden rounded-[2rem] border border-border bg-background/50 p-6 text-center hover:border-primary/40 hover:bg-card">
+                <div className="pointer-events-none absolute -inset-6 -z-10 bg-gradient-to-tr from-primary/10 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 blur-xl" />
+                <div className="text-3xl font-extrabold tracking-tight text-primary transition-transform duration-300 group-hover:scale-110">
                   <Counter to={s.to} suffix={s.suffix} decimals={s.decimals ?? 0} />
                 </div>
-                <div className="mt-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                <div className="mt-3 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground transition-colors group-hover:text-foreground">
                   {s.label}
                 </div>
               </div>
@@ -388,10 +395,13 @@ function Process() {
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
           {STEPS.map(([number, title, description], i) => (
             <Reveal key={number} delay={(i % 3) * 120}>
-              <div className="card-lift relative h-full rounded-2xl border border-border bg-card p-8">
-                <span className="absolute -top-6 left-8 font-mono text-6xl font-black text-primary/10">{number}</span>
-                <h5 className="mb-4 pt-4 text-lg font-bold text-card-foreground">{title}</h5>
-                <p className="text-sm leading-relaxed text-muted-foreground">{description}</p>
+              <div className="card-lift group relative h-full overflow-hidden rounded-[2rem] border border-border bg-background/50 p-8 hover:border-primary/40 hover:bg-card">
+                <div className="pointer-events-none absolute -right-16 -top-16 size-40 rounded-full bg-primary/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:animate-pulse group-hover:opacity-100" />
+                <span className="absolute top-4 right-6 font-mono text-6xl font-black text-primary/20 transition-colors group-hover:text-primary/30">{number}</span>
+                <div className="relative mt-4">
+                  <h5 className="mb-4 text-lg font-bold text-card-foreground transition-colors group-hover:text-primary">{title}</h5>
+                  <p className="text-sm leading-relaxed text-muted-foreground">{description}</p>
+                </div>
               </div>
             </Reveal>
           ))}
@@ -423,20 +433,30 @@ function Testimonials() {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {REVIEWS.map(([quote, name], i) => (
             <Reveal key={name} delay={(i % 3) * 100}>
-              <figure className="card-lift h-full rounded-2xl border border-border bg-card p-8">
-                <div className="mb-4 text-accent">★★★★★</div>
-                <blockquote className="mb-6 text-sm leading-relaxed text-muted-foreground">"{quote}"</blockquote>
-                <figcaption className="flex items-center gap-3">
-                  <span className="flex size-10 items-center justify-center rounded-full bg-primary/10 font-bold text-primary">
-                    {name.charAt(0)}
-                  </span>
-                  <span>
-                    <span className="block text-sm font-bold text-card-foreground">{name}</span>
-                    <span className="block text-[10px] uppercase tracking-widest text-muted-foreground">
-                      Google Review
+              <figure className="card-lift group relative flex h-full flex-col overflow-hidden rounded-[2rem] border border-border bg-background/50 p-8 hover:border-primary/40 hover:bg-card">
+                <div className="pointer-events-none absolute -right-16 -top-16 size-40 rounded-full bg-primary/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:animate-pulse group-hover:opacity-100" />
+                <Quote className="absolute -right-4 -top-4 size-24 text-primary/5 transition-transform duration-500 group-hover:-rotate-12 group-hover:scale-110 group-hover:text-primary/10" />
+                <div className="relative flex h-full flex-col">
+                  <div className="mb-4 flex gap-1 text-accent">
+                    <Star className="size-4 fill-current" />
+                    <Star className="size-4 fill-current" />
+                    <Star className="size-4 fill-current" />
+                    <Star className="size-4 fill-current" />
+                    <Star className="size-4 fill-current" />
+                  </div>
+                  <blockquote className="mb-8 text-sm leading-relaxed text-muted-foreground">"{quote}"</blockquote>
+                  <figcaption className="mt-auto flex items-center gap-3">
+                    <span className="flex size-10 items-center justify-center rounded-full bg-primary/10 font-bold text-primary ring-2 ring-transparent transition-all group-hover:bg-primary/20 group-hover:ring-primary/30">
+                      {name.charAt(0)}
                     </span>
-                  </span>
-                </figcaption>
+                    <span>
+                      <span className="block text-sm font-bold text-card-foreground">{name}</span>
+                      <span className="block font-mono text-[10px] uppercase tracking-widest text-muted-foreground transition-colors group-hover:text-primary/70">
+                        Google Review
+                      </span>
+                    </span>
+                  </figcaption>
+                </div>
               </figure>
             </Reveal>
           ))}
@@ -482,12 +502,14 @@ function Faq() {
         <div className="space-y-4">
           {FAQS.map(([q, a], i) => (
             <Reveal key={q} delay={i * 70}>
-              <details className="group rounded-2xl border border-border bg-background p-6 transition-colors hover:border-primary/30">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-6 text-base font-semibold">
+              <details className="group rounded-[2rem] border border-border bg-background/50 p-6 transition-all hover:border-primary/40 hover:bg-card hover:shadow-lg hover:shadow-primary/5">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-6 text-base font-bold text-card-foreground">
                   {q}
-                  <span className="text-primary transition-transform duration-300 group-open:rotate-45">+</span>
+                  <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary transition-transform duration-500 group-hover:bg-primary/20 group-open:rotate-180">
+                    <ChevronDown className="size-4" />
+                  </span>
                 </summary>
-                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{a}</p>
+                <p className="mt-4 text-sm leading-relaxed text-muted-foreground animate-reveal">{a}</p>
               </details>
             </Reveal>
           ))}
@@ -514,19 +536,25 @@ function Contact() {
               <div className="mb-10 grid gap-4 sm:grid-cols-2">
                 <a
                   href={`tel:${PHONE}`}
-                  className="card-lift rounded-2xl border border-border bg-card p-6 hover:border-primary/40"
+                  className="card-lift group rounded-[2rem] border border-border bg-background/50 p-6 hover:border-primary/40 hover:bg-card"
                 >
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Call</div>
-                  <div className="mt-2 font-bold text-primary">{PHONE_DISPLAY}</div>
+                  <div className="mb-4 inline-flex size-12 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-transform group-hover:scale-110 group-hover:bg-primary/20">
+                    <PhoneCall className="size-5" />
+                  </div>
+                  <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Call Us</div>
+                  <div className="mt-2 font-bold text-card-foreground group-hover:text-primary transition-colors">{PHONE_DISPLAY}</div>
                 </a>
                 <a
                   href={WHATSAPP}
                   target="_blank"
                   rel="noreferrer"
-                  className="card-lift rounded-2xl border border-border bg-card p-6 hover:border-primary/40"
+                  className="card-lift group rounded-[2rem] border border-border bg-background/50 p-6 hover:border-[#25D366]/40 hover:bg-card"
                 >
+                  <div className="mb-4 inline-flex size-12 items-center justify-center rounded-2xl bg-[#25D366]/10 text-[#25D366] transition-transform group-hover:scale-110 group-hover:bg-[#25D366]/20">
+                    <MessageCircle className="size-5" />
+                  </div>
                   <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">WhatsApp</div>
-                  <div className="mt-2 font-bold text-primary">Chat with us now</div>
+                  <div className="mt-2 font-bold text-card-foreground group-hover:text-[#25D366] transition-colors">Chat with us now</div>
                 </a>
               </div>
 
@@ -577,7 +605,7 @@ function Contact() {
                     Service Required
                   </label>
                   <select className="w-full rounded-lg border-none bg-secondary px-4 py-3 text-sm text-foreground transition-all focus:ring-2 focus:ring-primary/30">
-                    {SERVICES.map(([, title]) => (
+                    {SERVICES.map(({ title }) => (
                       <option key={title}>{title}</option>
                     ))}
                   </select>
@@ -629,6 +657,20 @@ function Footer() {
   );
 }
 
+function FloatingWhatsApp() {
+  return (
+    <a
+      href={WHATSAPP}
+      target="_blank"
+      rel="noreferrer"
+      className="fixed bottom-6 right-6 z-50 flex size-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-xl shadow-[#25D366]/20 transition-all hover:-translate-y-2 hover:scale-110 hover:shadow-2xl hover:shadow-[#25D366]/40"
+      aria-label="Chat on WhatsApp"
+    >
+      <MessageCircle className="size-7" />
+    </a>
+  );
+}
+
 function Index() {
   return (
     <div className="min-h-screen bg-background font-sans text-foreground selection:bg-primary/10 selection:text-primary">
@@ -644,6 +686,7 @@ function Index() {
         <Contact />
       </main>
       <Footer />
+      <FloatingWhatsApp />
     </div>
   );
 }
