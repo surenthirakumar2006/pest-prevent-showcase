@@ -35,9 +35,11 @@ export const Route = createFileRoute("/")({
 function Logo() {
   return (
     <a href="#top" className="group flex items-center gap-2">
-      <div className="relative flex size-8 items-center justify-center overflow-hidden rounded-lg bg-primary">
-        <div className="size-4 rounded-full border-2 border-primary-foreground transition-transform duration-500 group-hover:rotate-180 group-hover:scale-110" />
-      </div>
+      <img 
+        src="/profile_img.png" 
+        alt="Global Elite Logo" 
+        className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105" 
+      />
       <span className="text-lg font-bold tracking-tighter text-primary">
         GLOBAL<span className="font-light text-foreground">ELITE</span>
       </span>
