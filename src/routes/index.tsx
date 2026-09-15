@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import heroHome from "@/assets/hero-home.jpg";
 import { Reveal } from "@/components/Reveal";
-import { BugOff, Bug, Wind, ShieldAlert, Car, Home, Building2, Factory, BedDouble, Hospital, GraduationCap, Utensils, Wine, CheckCircle2, MessageCircle, Quote, Star, ShieldCheck, PhoneCall, ChevronDown } from "lucide-react";
+import { BugOff, Bug, Wind, ShieldAlert, Car, Home, Building2, Factory, BedDouble, Hospital, GraduationCap, Utensils, Wine, CheckCircle2, MessageCircle, Quote, Star, ShieldCheck, PhoneCall, ChevronDown, Menu, X } from "lucide-react";
 
 const PHONE = "+917010976603";
 const PHONE_DISPLAY = "+91 70109 76603";
@@ -49,6 +49,8 @@ function Logo() {
 
 function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
     onScroll();
@@ -56,22 +58,28 @@ function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const navLinks = [
+    ["Services", "#services"],
+    ["About", "#about"],
+    ["Process", "#process"],
+    ["Reviews", "#testimonials"],
+    ["FAQ", "#faq"],
+  ];
+
   return (
     <nav
       className={`sticky top-0 z-50 transition-all duration-500 ${
-        scrolled ? "border-b border-border bg-background/70 shadow-sm backdrop-blur-xl" : "border-b border-transparent"
+        scrolled || mobileMenuOpen
+          ? "border-b border-border bg-background/90 shadow-sm backdrop-blur-xl"
+          : "border-b border-transparent"
       }`}
     >
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
         <Logo />
+
+        {/* Desktop Nav */}
         <div className="hidden items-center gap-8 md:flex">
-          {[
-            ["Services", "#services"],
-            ["About", "#about"],
-            ["Process", "#process"],
-            ["Reviews", "#testimonials"],
-            ["FAQ", "#faq"],
-          ].map(([label, href]) => (
+          {navLinks.map(([label, href]) => (
             <a
               key={href}
               href={href}
@@ -87,7 +95,73 @@ function Nav() {
             Book Free Inspection
           </a>
         </div>
+
+        {/* Mobile quick contact & menu toggle */}
+        <div className="flex items-center gap-2 md:hidden">
+          <a
+            href={`tel:${PHONE}`}
+            className="inline-flex size-9 items-center justify-center rounded-full border border-primary/20 bg-primary/10 text-primary transition-colors hover:bg-primary/20"
+            aria-label="Call now"
+          >
+            <PhoneCall className="size-4" />
+          </a>
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen((prev) => !prev)}
+            className="inline-flex size-9 items-center justify-center rounded-xl border border-border bg-card text-foreground transition-colors hover:bg-muted"
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileMenuOpen}
+          >
+            {mobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+          </button>
+        </div>
       </div>
+
+      {/* Mobile dropdown menu */}
+      {mobileMenuOpen && (
+        <div className="border-b border-border bg-background/95 px-5 py-5 shadow-2xl backdrop-blur-2xl md:hidden animate-reveal">
+          <div className="flex flex-col gap-2">
+            {navLinks.map(([label, href]) => (
+              <a
+                key={href}
+                href={href}
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-between rounded-xl px-4 py-3 text-base font-semibold text-foreground transition-colors hover:bg-primary/10 hover:text-primary active:bg-primary/15"
+              >
+                <span>{label}</span>
+                <span className="text-xs text-muted-foreground">→</span>
+              </a>
+            ))}
+            <div className="mt-3 flex flex-col gap-2.5 border-t border-border pt-3">
+              <a
+                href="#contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full rounded-full bg-primary py-3.5 text-center text-sm font-bold text-primary-foreground shadow-md transition-all hover:bg-primary/90"
+              >
+                Book Free Inspection
+              </a>
+              <div className="grid grid-cols-2 gap-2">
+                <a
+                  href={`tel:${PHONE}`}
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-border py-2.5 text-xs font-semibold text-foreground hover:bg-muted"
+                >
+                  <PhoneCall className="size-3.5 text-primary" />
+                  Call Now
+                </a>
+                <a
+                  href={WHATSAPP}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-[#25D366]/30 bg-[#25D366]/10 py-2.5 text-xs font-semibold text-[#25D366] hover:bg-[#25D366]/20"
+                >
+                  <MessageCircle className="size-3.5" />
+                  WhatsApp
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }
@@ -126,26 +200,26 @@ function Counter({ to, suffix = "", decimals = 0 }: { to: number; suffix?: strin
 
 function Hero() {
   return (
-    <header id="top" className="relative overflow-hidden pt-16 pb-32">
+    <header id="top" className="relative overflow-hidden pt-8 pb-16 sm:pt-16 sm:pb-32">
       <div className="pointer-events-none absolute inset-0 -z-10 grid-lines" />
       <div className="pointer-events-none absolute inset-x-0 -top-40 -z-10 h-[42rem] aurora opacity-70" />
 
-      <div className="mx-auto grid max-w-7xl items-center gap-16 px-6 lg:grid-cols-2">
+      <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 sm:gap-16 sm:px-6 lg:grid-cols-2">
         <div>
           <Reveal>
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 backdrop-blur">
-              <span className="relative flex size-3 items-center justify-center">
+            <div className="mb-4 sm:mb-6 inline-flex max-w-full items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3.5 py-1.5 backdrop-blur">
+              <span className="relative flex size-2.5 sm:size-3 shrink-0 items-center justify-center">
                 <span className="absolute inline-flex size-full animate-ping rounded-full bg-primary opacity-75" />
-                <span className="relative inline-flex size-2 rounded-full bg-primary" />
+                <span className="relative inline-flex size-1.5 sm:size-2 rounded-full bg-primary" />
               </span>
-              <span className="font-mono text-[10px] uppercase tracking-widest text-primary font-bold">
+              <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-wider sm:tracking-widest text-primary font-bold truncate sm:text-wrap">
                 Trusted since 2012 · Chennai's #1 rated pest experts
               </span>
             </div>
           </Reveal>
 
           <Reveal delay={90}>
-            <h1 className="mb-8 text-balance text-5xl font-extrabold leading-[0.95] tracking-tight md:text-6xl">
+            <h1 className="mb-6 sm:mb-8 text-balance text-3xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl md:text-6xl sm:leading-[0.95]">
               Chennai's most trusted{" "}
               <span className="bg-gradient-to-r from-primary via-primary-light to-accent bg-clip-text text-transparent">
                 pest control experts.
@@ -154,46 +228,48 @@ function Hero() {
           </Reveal>
 
           <Reveal delay={180}>
-            <p className="mb-10 max-w-lg text-pretty text-lg leading-relaxed text-muted-foreground">
+            <p className="mb-8 sm:mb-10 max-w-lg text-pretty text-base sm:text-lg leading-relaxed text-muted-foreground">
               Protect your home and business with safe, eco-friendly and guaranteed pest control solutions — delivered
               by certified specialists with over a decade of experience.
             </p>
           </Reveal>
 
           <Reveal delay={260}>
-            <div className="flex flex-wrap items-center gap-4">
+            <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-4">
               <a
                 href="#contact"
-                className="sweep-on-hover relative overflow-hidden rounded-full bg-primary px-8 py-4 text-lg font-bold text-primary-foreground transition-all hover:-translate-y-0.5 hover:shadow-2xl"
+                className="sweep-on-hover relative overflow-hidden rounded-full bg-primary px-6 py-3.5 sm:px-8 sm:py-4 text-center text-base sm:text-lg font-bold text-primary-foreground transition-all hover:-translate-y-0.5 hover:shadow-2xl"
               >
                 Book Free Inspection
               </a>
-              <a
-                href={WHATSAPP}
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-full border border-border px-6 py-4 text-sm font-semibold transition-all hover:border-primary/40 hover:bg-primary/5"
-              >
-                WhatsApp Now
-              </a>
-              <a
-                href={`tel:${PHONE}`}
-                className="rounded-full border border-border px-6 py-4 text-sm font-semibold transition-all hover:border-primary/40 hover:bg-primary/5"
-              >
-                Call Now
-              </a>
+              <div className="flex items-center gap-3">
+                <a
+                  href={WHATSAPP}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex-1 sm:flex-initial text-center rounded-full border border-border px-5 py-3 sm:px-6 sm:py-4 text-sm font-semibold transition-all hover:border-primary/40 hover:bg-primary/5"
+                >
+                  WhatsApp Now
+                </a>
+                <a
+                  href={`tel:${PHONE}`}
+                  className="flex-1 sm:flex-initial text-center rounded-full border border-border px-5 py-3 sm:px-6 sm:py-4 text-sm font-semibold transition-all hover:border-primary/40 hover:bg-primary/5"
+                >
+                  Call Now
+                </a>
+              </div>
             </div>
           </Reveal>
 
           <Reveal delay={340}>
-            <div className="mt-8 flex items-center gap-3">
+            <div className="mt-6 sm:mt-8 flex items-center gap-3">
               <span className="text-accent">★★★★★</span>
               <span className="text-xs font-medium text-muted-foreground">5.0 · 14 Google Reviews</span>
             </div>
           </Reveal>
         </div>
 
-        <Reveal delay={200} className="relative">
+        <Reveal delay={200} className="relative mt-4 lg:mt-0">
           <div className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-gradient-to-tr from-primary/20 via-transparent to-accent/20 blur-2xl" />
           <div className="aspect-square overflow-hidden rounded-3xl bg-card shadow-2xl ring-1 ring-border">
             <img
@@ -204,13 +280,13 @@ function Hero() {
               className="h-full w-full object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.19,1,0.22,1)] hover:scale-105"
             />
           </div>
-          <div className="animate-float absolute -bottom-6 -left-6 flex items-center gap-4 rounded-2xl bg-card p-6 shadow-xl ring-1 ring-border">
-            <div className="flex size-12 items-center justify-center rounded-xl bg-accent/15 font-bold text-accent">
+          <div className="animate-float absolute -bottom-4 left-4 sm:-bottom-6 sm:-left-6 flex items-center gap-3 sm:gap-4 rounded-2xl bg-card p-4 sm:p-6 shadow-xl ring-1 ring-border max-w-[calc(100%-2rem)]">
+            <div className="flex size-10 sm:size-12 shrink-0 items-center justify-center rounded-xl bg-accent/15 font-bold text-accent text-sm sm:text-base">
               13+
             </div>
             <div>
-              <div className="text-sm font-bold text-card-foreground">Years of trusted service</div>
-              <div className="text-[10px] uppercase tracking-tighter text-muted-foreground">
+              <div className="text-xs sm:text-sm font-bold text-card-foreground">Years of trusted service</div>
+              <div className="text-[9px] sm:text-[10px] uppercase tracking-tighter text-muted-foreground">
                 Serving Chennai since 2012
               </div>
             </div>
@@ -346,28 +422,28 @@ const SERVICES = [
 
 function Services() {
   return (
-    <section id="services" className="relative overflow-hidden bg-card py-32">
+    <section id="services" className="relative overflow-hidden bg-card py-16 sm:py-32">
       <div className="pointer-events-none absolute inset-x-0 -top-40 -z-10 h-[42rem] aurora opacity-20" />
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <Reveal>
-          <div className="mb-20 flex flex-col items-center text-center">
+          <div className="mb-12 sm:mb-20 flex flex-col items-center text-center">
             <h2 className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 font-mono text-xs uppercase tracking-[0.3em] text-primary backdrop-blur">
               <span className="size-1.5 animate-pulse rounded-full bg-primary" />
               Our Services
             </h2>
-            <h3 className="max-w-3xl text-balance text-4xl font-extrabold tracking-tight text-card-foreground md:text-5xl">
+            <h3 className="max-w-3xl text-balance text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-card-foreground">
               Complete pest protection, for every environment.
             </h3>
           </div>
         </Reveal>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {SERVICES.map(({ icon: Icon, title, desc, image, tag }, i) => (
             <Reveal key={title} delay={(i % 4) * 100}>
-              <div className="card-lift group relative flex h-full flex-col justify-between overflow-hidden rounded-[2rem] border border-border bg-background/50 p-6 transition-all duration-300 hover:border-primary/40 hover:bg-card">
+              <div className="card-lift group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl sm:rounded-[2rem] border border-border bg-background/50 p-5 sm:p-6 transition-all duration-300 hover:border-primary/40 hover:bg-card">
                 <div className="pointer-events-none absolute -right-16 -top-16 size-40 rounded-full bg-primary/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:animate-pulse group-hover:opacity-100" />
                 <div>
-                  <div className="relative mb-5 h-44 w-full overflow-hidden rounded-2xl bg-muted">
+                  <div className="relative mb-5 h-44 w-full overflow-hidden rounded-xl sm:rounded-2xl bg-muted">
                     <img
                       src={image}
                       alt={title}
@@ -380,10 +456,10 @@ function Services() {
                       <span>{tag}</span>
                     </span>
                   </div>
-                  <h4 className="mb-2 text-lg font-bold tracking-tight text-card-foreground transition-colors group-hover:text-primary">{title}</h4>
+                  <h4 className="mb-2 text-base sm:text-lg font-bold tracking-tight text-card-foreground transition-colors group-hover:text-primary">{title}</h4>
                   <p className="mb-6 text-sm leading-relaxed text-muted-foreground">{desc}</p>
                 </div>
-                <a href="#contact" className="mt-auto inline-flex items-center gap-2 font-mono text-xs font-semibold tracking-wide text-primary opacity-80 transition-all hover:opacity-100 group-hover:gap-3">
+                <a href="#contact" className="mt-auto inline-flex items-center gap-2 font-mono text-xs font-semibold tracking-wide text-primary opacity-80 transition-all hover:opacity-100 group-hover:gap-3 py-1">
                   Book Service <span className="transition-transform group-hover:translate-x-1">→</span>
                 </a>
               </div>
@@ -408,23 +484,23 @@ const HIGHLIGHTS = [
 
 function About() {
   return (
-    <section id="about" className="relative py-32">
-      <div className="mx-auto grid max-w-7xl items-center gap-16 px-6 lg:grid-cols-2">
+    <section id="about" className="relative py-16 sm:py-32">
+      <div className="mx-auto grid max-w-7xl items-center gap-10 sm:gap-16 px-4 sm:px-6 lg:grid-cols-2">
         <Reveal>
           <div>
             <h2 className="mb-4 font-mono text-xs uppercase tracking-[0.3em] text-primary">About Us</h2>
-            <h3 className="mb-8 text-4xl font-bold tracking-tight">A decade of protection, engineered for Chennai.</h3>
-            <p className="mb-10 leading-relaxed text-muted-foreground">
+            <h3 className="mb-6 sm:mb-8 text-3xl sm:text-4xl font-bold tracking-tight">A decade of protection, engineered for Chennai.</h3>
+            <p className="mb-8 sm:mb-10 text-sm sm:text-base leading-relaxed text-muted-foreground">
               Global Elite Pest Management has been providing professional pest control services since 2012. We
               specialize in termite treatment, cockroach control, mosquito control, rodent management, and car anti-rat
               treatment. Using safe, eco-friendly methods and advanced technology, we deliver reliable protection for
               residential and commercial properties throughout Chennai.
             </p>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-2 sm:gap-3">
               {HIGHLIGHTS.map((h) => (
                 <span
                   key={h}
-                  className="group flex cursor-default items-center gap-2 rounded-full border border-border bg-background/50 px-4 py-2 text-xs font-medium text-muted-foreground transition-all hover:border-primary/40 hover:bg-card hover:text-primary hover:shadow-lg hover:shadow-primary/5"
+                  className="group flex cursor-default items-center gap-2 rounded-full border border-border bg-background/50 px-3.5 py-1.5 sm:px-4 sm:py-2 text-[11px] sm:text-xs font-medium text-muted-foreground transition-all hover:border-primary/40 hover:bg-card hover:text-primary hover:shadow-lg hover:shadow-primary/5"
                 >
                   <CheckCircle2 className="size-3 text-primary/70 transition-transform group-hover:scale-110 group-hover:text-primary" />
                   {h}
@@ -435,7 +511,7 @@ function About() {
         </Reveal>
 
         <Reveal delay={150}>
-          <div className="grid gap-6 sm:grid-cols-2">
+          <div className="grid gap-3 sm:gap-6 grid-cols-2">
             {[
               { to: 13, suffix: "+", label: "Years Experience" },
               { to: 5, suffix: "★", label: "Google Rating", decimals: 1 },
@@ -444,12 +520,12 @@ function About() {
               { to: 98, suffix: "%", label: "Customer Retention" },
               { to: 30, suffix: "min", label: "Response Time" },
             ].map((s) => (
-              <div key={s.label} className="card-lift group relative overflow-hidden rounded-[2rem] border border-border bg-background/50 p-6 text-center hover:border-primary/40 hover:bg-card">
+              <div key={s.label} className="card-lift group relative overflow-hidden rounded-2xl sm:rounded-[2rem] border border-border bg-background/50 p-4 sm:p-6 text-center hover:border-primary/40 hover:bg-card">
                 <div className="pointer-events-none absolute -inset-6 -z-10 bg-gradient-to-tr from-primary/10 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 blur-xl" />
-                <div className="text-3xl font-extrabold tracking-tight text-primary transition-transform duration-300 group-hover:scale-110">
+                <div className="text-2xl sm:text-3xl font-extrabold tracking-tight text-primary transition-transform duration-300 group-hover:scale-110">
                   <Counter to={s.to} suffix={s.suffix} decimals={s.decimals ?? 0} />
                 </div>
-                <div className="mt-3 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground transition-colors group-hover:text-foreground">
+                <div className="mt-2 sm:mt-3 font-mono text-[9px] sm:text-[10px] uppercase tracking-wider sm:tracking-[0.2em] text-muted-foreground transition-colors group-hover:text-foreground">
                   {s.label}
                 </div>
               </div>
@@ -472,23 +548,23 @@ const STEPS = [
 
 function Process() {
   return (
-    <section id="process" className="relative border-y border-border bg-background py-32">
+    <section id="process" className="relative border-y border-border bg-background py-16 sm:py-32">
       <div className="pointer-events-none absolute inset-0 -z-10 grid-lines opacity-60" />
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <Reveal>
-          <div className="mb-16 max-w-2xl">
+          <div className="mb-10 sm:mb-16 max-w-2xl">
             <h2 className="mb-4 font-mono text-xs uppercase tracking-[0.3em] text-primary">How It Works</h2>
-            <h3 className="text-4xl font-bold tracking-tight">A seamless 6-step process.</h3>
+            <h3 className="text-3xl sm:text-4xl font-bold tracking-tight">A seamless 6-step process.</h3>
           </div>
         </Reveal>
-        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-5 sm:gap-12 md:grid-cols-2 lg:grid-cols-3">
           {STEPS.map(([number, title, description], i) => (
             <Reveal key={number} delay={(i % 3) * 120}>
-              <div className="card-lift group relative h-full overflow-hidden rounded-[2rem] border border-border bg-background/50 p-8 hover:border-primary/40 hover:bg-card">
+              <div className="card-lift group relative h-full overflow-hidden rounded-2xl sm:rounded-[2rem] border border-border bg-background/50 p-6 sm:p-8 hover:border-primary/40 hover:bg-card">
                 <div className="pointer-events-none absolute -right-16 -top-16 size-40 rounded-full bg-primary/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:animate-pulse group-hover:opacity-100" />
-                <span className="absolute top-4 right-6 font-mono text-6xl font-black text-primary/20 transition-colors group-hover:text-primary/30">{number}</span>
-                <div className="relative mt-4">
-                  <h5 className="mb-4 text-lg font-bold text-card-foreground transition-colors group-hover:text-primary">{title}</h5>
+                <span className="absolute top-4 right-6 font-mono text-5xl sm:text-6xl font-black text-primary/15 sm:text-primary/20 transition-colors group-hover:text-primary/30">{number}</span>
+                <div className="relative mt-2 sm:mt-4">
+                  <h5 className="mb-2 sm:mb-4 text-base sm:text-lg font-bold text-card-foreground transition-colors group-hover:text-primary">{title}</h5>
                   <p className="text-sm leading-relaxed text-muted-foreground">{description}</p>
                 </div>
               </div>
@@ -511,36 +587,36 @@ const REVIEWS = [
 
 function Testimonials() {
   return (
-    <section id="testimonials" className="overflow-hidden py-32">
-      <div className="mx-auto max-w-7xl px-6">
+    <section id="testimonials" className="overflow-hidden py-16 sm:py-32">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <Reveal>
-          <div className="mb-16 max-w-2xl">
+          <div className="mb-10 sm:mb-16 max-w-2xl">
             <h2 className="mb-4 font-mono text-xs uppercase tracking-[0.3em] text-primary">5.0 · 14 Google Reviews</h2>
-            <h3 className="text-4xl font-bold tracking-tight">Loved by customers across Chennai.</h3>
+            <h3 className="text-3xl sm:text-4xl font-bold tracking-tight">Loved by customers across Chennai.</h3>
           </div>
         </Reveal>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-5 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
           {REVIEWS.map(([quote, name], i) => (
             <Reveal key={name} delay={(i % 3) * 100}>
-              <figure className="card-lift group relative flex h-full flex-col overflow-hidden rounded-[2rem] border border-border bg-background/50 p-8 hover:border-primary/40 hover:bg-card">
+              <figure className="card-lift group relative flex h-full flex-col overflow-hidden rounded-2xl sm:rounded-[2rem] border border-border bg-background/50 p-6 sm:p-8 hover:border-primary/40 hover:bg-card">
                 <div className="pointer-events-none absolute -right-16 -top-16 size-40 rounded-full bg-primary/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:animate-pulse group-hover:opacity-100" />
-                <Quote className="absolute -right-4 -top-4 size-24 text-primary/5 transition-transform duration-500 group-hover:-rotate-12 group-hover:scale-110 group-hover:text-primary/10" />
+                <Quote className="absolute -right-4 -top-4 size-20 sm:size-24 text-primary/5 transition-transform duration-500 group-hover:-rotate-12 group-hover:scale-110 group-hover:text-primary/10" />
                 <div className="relative flex h-full flex-col">
-                  <div className="mb-4 flex gap-1 text-accent">
-                    <Star className="size-4 fill-current" />
-                    <Star className="size-4 fill-current" />
-                    <Star className="size-4 fill-current" />
-                    <Star className="size-4 fill-current" />
-                    <Star className="size-4 fill-current" />
+                  <div className="mb-3 sm:mb-4 flex gap-1 text-accent">
+                    <Star className="size-3.5 sm:size-4 fill-current" />
+                    <Star className="size-3.5 sm:size-4 fill-current" />
+                    <Star className="size-3.5 sm:size-4 fill-current" />
+                    <Star className="size-3.5 sm:size-4 fill-current" />
+                    <Star className="size-3.5 sm:size-4 fill-current" />
                   </div>
-                  <blockquote className="mb-8 text-sm leading-relaxed text-muted-foreground">"{quote}"</blockquote>
+                  <blockquote className="mb-6 sm:mb-8 text-sm leading-relaxed text-muted-foreground">"{quote}"</blockquote>
                   <figcaption className="mt-auto flex items-center gap-3">
-                    <span className="flex size-10 items-center justify-center rounded-full bg-primary/10 font-bold text-primary ring-2 ring-transparent transition-all group-hover:bg-primary/20 group-hover:ring-primary/30">
+                    <span className="flex size-9 sm:size-10 items-center justify-center rounded-full bg-primary/10 font-bold text-primary ring-2 ring-transparent transition-all group-hover:bg-primary/20 group-hover:ring-primary/30 text-sm">
                       {name.charAt(0)}
                     </span>
                     <span>
                       <span className="block text-sm font-bold text-card-foreground">{name}</span>
-                      <span className="block font-mono text-[10px] uppercase tracking-widest text-muted-foreground transition-colors group-hover:text-primary/70">
+                      <span className="block font-mono text-[9px] sm:text-[10px] uppercase tracking-widest text-muted-foreground transition-colors group-hover:text-primary/70">
                         Google Review
                       </span>
                     </span>
@@ -580,25 +656,25 @@ const FAQS = [
 
 function Faq() {
   return (
-    <section id="faq" className="border-y border-border bg-card py-32">
-      <div className="mx-auto max-w-3xl px-6">
+    <section id="faq" className="border-y border-border bg-card py-16 sm:py-32">
+      <div className="mx-auto max-w-3xl px-4 sm:px-6">
         <Reveal>
-          <div className="mb-12 text-center">
+          <div className="mb-8 sm:mb-12 text-center">
             <h2 className="mb-4 font-mono text-xs uppercase tracking-[0.3em] text-primary">FAQ</h2>
-            <h3 className="text-4xl font-bold tracking-tight text-card-foreground">Questions, answered.</h3>
+            <h3 className="text-3xl sm:text-4xl font-bold tracking-tight text-card-foreground">Questions, answered.</h3>
           </div>
         </Reveal>
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           {FAQS.map(([q, a], i) => (
             <Reveal key={q} delay={i * 70}>
-              <details className="group rounded-[2rem] border border-border bg-background/50 p-6 transition-all hover:border-primary/40 hover:bg-card hover:shadow-lg hover:shadow-primary/5">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-6 text-base font-bold text-card-foreground">
-                  {q}
-                  <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary transition-transform duration-500 group-hover:bg-primary/20 group-open:rotate-180">
-                    <ChevronDown className="size-4" />
+              <details className="group rounded-2xl sm:rounded-[2rem] border border-border bg-background/50 p-4 sm:p-6 transition-all hover:border-primary/40 hover:bg-card hover:shadow-lg hover:shadow-primary/5">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 sm:gap-6 text-sm sm:text-base font-bold text-card-foreground">
+                  <span>{q}</span>
+                  <span className="flex size-7 sm:size-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary transition-transform duration-500 group-hover:bg-primary/20 group-open:rotate-180">
+                    <ChevronDown className="size-3.5 sm:size-4" />
                   </span>
                 </summary>
-                <p className="mt-4 text-sm leading-relaxed text-muted-foreground animate-reveal">{a}</p>
+                <p className="mt-3 sm:mt-4 text-xs sm:text-sm leading-relaxed text-muted-foreground animate-reveal">{a}</p>
               </details>
             </Reveal>
           ))}
@@ -610,40 +686,40 @@ function Faq() {
 
 function Contact() {
   return (
-    <section id="contact" className="relative pb-32 pt-32">
+    <section id="contact" className="relative py-16 sm:py-32">
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-96 aurora opacity-40" />
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="grid gap-16 lg:grid-cols-2">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="grid gap-10 lg:gap-16 lg:grid-cols-2">
           <Reveal>
             <div>
               <h2 className="mb-4 font-mono text-xs uppercase tracking-[0.3em] text-primary">Get in touch</h2>
-              <h3 className="mb-6 text-4xl font-bold tracking-tight">Book your free inspection.</h3>
-              <p className="mb-10 text-muted-foreground">
+              <h3 className="mb-4 sm:mb-6 text-3xl sm:text-4xl font-bold tracking-tight">Book your free inspection.</h3>
+              <p className="mb-8 sm:mb-10 text-sm sm:text-base text-muted-foreground">
                 Get an on-site assessment and a no-obligation quote within 24 hours.
               </p>
 
-              <div className="mb-10 grid gap-4 sm:grid-cols-2">
+              <div className="mb-8 sm:mb-10 grid gap-3 sm:gap-4 sm:grid-cols-2">
                 <a
                   href={`tel:${PHONE}`}
-                  className="card-lift group rounded-[2rem] border border-border bg-background/50 p-6 hover:border-primary/40 hover:bg-card"
+                  className="card-lift group rounded-2xl sm:rounded-[2rem] border border-border bg-background/50 p-4 sm:p-6 hover:border-primary/40 hover:bg-card"
                 >
-                  <div className="mb-4 inline-flex size-12 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-transform group-hover:scale-110 group-hover:bg-primary/20">
-                    <PhoneCall className="size-5" />
+                  <div className="mb-3 sm:mb-4 inline-flex size-10 sm:size-12 items-center justify-center rounded-xl sm:rounded-2xl bg-primary/10 text-primary transition-transform group-hover:scale-110 group-hover:bg-primary/20">
+                    <PhoneCall className="size-4 sm:size-5" />
                   </div>
                   <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Call Us</div>
-                  <div className="mt-2 font-bold text-card-foreground group-hover:text-primary transition-colors">{PHONE_DISPLAY}</div>
+                  <div className="mt-1 sm:mt-2 text-sm sm:text-base font-bold text-card-foreground group-hover:text-primary transition-colors">{PHONE_DISPLAY}</div>
                 </a>
                 <a
                   href={WHATSAPP}
                   target="_blank"
                   rel="noreferrer"
-                  className="card-lift group rounded-[2rem] border border-border bg-background/50 p-6 hover:border-[#25D366]/40 hover:bg-card"
+                  className="card-lift group rounded-2xl sm:rounded-[2rem] border border-border bg-background/50 p-4 sm:p-6 hover:border-[#25D366]/40 hover:bg-card"
                 >
-                  <div className="mb-4 inline-flex size-12 items-center justify-center rounded-2xl bg-[#25D366]/10 text-[#25D366] transition-transform group-hover:scale-110 group-hover:bg-[#25D366]/20">
-                    <MessageCircle className="size-5" />
+                  <div className="mb-3 sm:mb-4 inline-flex size-10 sm:size-12 items-center justify-center rounded-xl sm:rounded-2xl bg-[#25D366]/10 text-[#25D366] transition-transform group-hover:scale-110 group-hover:bg-[#25D366]/20">
+                    <MessageCircle className="size-4 sm:size-5" />
                   </div>
                   <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">WhatsApp</div>
-                  <div className="mt-2 font-bold text-card-foreground group-hover:text-[#25D366] transition-colors">Chat with us now</div>
+                  <div className="mt-1 sm:mt-2 text-sm sm:text-base font-bold text-card-foreground group-hover:text-[#25D366] transition-colors">Chat with us now</div>
                 </a>
               </div>
 
@@ -663,8 +739,8 @@ function Contact() {
           </Reveal>
 
           <Reveal delay={150}>
-            <div className="rounded-3xl bg-card p-10 shadow-xl ring-1 ring-border">
-              <form className="grid grid-cols-2 gap-6" onSubmit={(e) => e.preventDefault()}>
+            <div className="rounded-2xl sm:rounded-3xl bg-card p-5 sm:p-10 shadow-xl ring-1 ring-border">
+              <form className="grid grid-cols-2 gap-4 sm:gap-6" onSubmit={(e) => e.preventDefault()}>
                 <div className="col-span-2 md:col-span-1">
                   <label className="mb-2 block font-mono text-[10px] uppercase text-muted-foreground">Name</label>
                   <input
@@ -709,7 +785,7 @@ function Contact() {
                 </div>
                 <button
                   type="submit"
-                  className="sweep-on-hover relative col-span-2 overflow-hidden rounded-xl bg-primary py-4 font-bold text-primary-foreground transition-all hover:-translate-y-0.5 hover:shadow-xl"
+                  className="sweep-on-hover relative col-span-2 overflow-hidden rounded-xl bg-primary py-3.5 sm:py-4 font-bold text-primary-foreground transition-all hover:-translate-y-0.5 hover:shadow-xl"
                 >
                   Submit
                 </button>
@@ -727,8 +803,8 @@ function Contact() {
 
 function Footer() {
   return (
-    <footer className="border-t border-border bg-background py-12">
-      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-6 md:flex-row">
+    <footer className="border-t border-border bg-background py-8 sm:py-12">
+      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 sm:gap-6 px-4 sm:px-6 text-center md:flex-row md:text-left">
         <Logo />
         <div className="flex items-center gap-4 text-sm font-medium">
           <a href={`tel:${PHONE}`} className="text-primary hover:underline">
@@ -738,7 +814,7 @@ function Footer() {
             WhatsApp
           </a>
         </div>
-        <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+        <div className="font-mono text-[9px] sm:text-[10px] uppercase tracking-widest text-muted-foreground">
           &copy; {new Date().getFullYear()} Global Elite Pest Management — Ambattur, Chennai
         </div>
       </div>
@@ -752,10 +828,10 @@ function FloatingWhatsApp() {
       href={WHATSAPP}
       target="_blank"
       rel="noreferrer"
-      className="fixed bottom-6 right-6 z-50 flex size-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-xl shadow-[#25D366]/20 transition-all hover:-translate-y-2 hover:scale-110 hover:shadow-2xl hover:shadow-[#25D366]/40"
+      className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-50 flex size-12 sm:size-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-xl shadow-[#25D366]/20 transition-all hover:-translate-y-2 hover:scale-110 hover:shadow-2xl hover:shadow-[#25D366]/40 active:scale-95"
       aria-label="Chat on WhatsApp"
     >
-      <MessageCircle className="size-7" />
+      <MessageCircle className="size-6 sm:size-7" />
     </a>
   );
 }
