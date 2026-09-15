@@ -251,19 +251,97 @@ function Marquee() {
 }
 
 const SERVICES = [
-  { icon: BugOff, title: "Termite Control", desc: "Deep-penetration treatment that eliminates colonies and safeguards wooden structures for years." },
-  { icon: Bug, title: "Cockroach Control", desc: "Gel-based, odourless treatment reaching hidden nests in kitchens, bathrooms and offices." },
-  { icon: Wind, title: "Mosquito Treatment", desc: "Fogging + larvicide programs that break the breeding cycle indoors and outdoors." },
-  { icon: ShieldAlert, title: "Rat Control", desc: "Bait-station and exclusion strategy to remove rodents without harm to pets or children." },
-  { icon: Car, title: "Car Anti-Rat Spray", desc: "Specialised herbal spray to protect vehicle wiring and interiors from rodent damage." },
-  { icon: Home, title: "Residential Pest Control", desc: "Whole-home protection plans tailored to Chennai apartments, villas and independent houses." },
-  { icon: Building2, title: "Commercial Pest Control", desc: "Scheduled service contracts for offices, showrooms and retail spaces — zero disruption." },
-  { icon: Factory, title: "Factory Pest Control", desc: "Industrial-grade solutions for warehouses, factories and manufacturing floors." },
-  { icon: BedDouble, title: "Hotel Pest Control", desc: "Discreet, guest-safe programs meeting hospitality hygiene standards." },
-  { icon: Hospital, title: "Hospital Pest Control", desc: "Certified protocols for hospitals and clinics — medical-grade safety compliance." },
-  { icon: GraduationCap, title: "School Pest Control", desc: "Child-safe treatments delivered during off-hours across schools and campuses." },
-  { icon: Utensils, title: "Restaurant Pest Control", desc: "HACCP-aligned kitchen treatments protecting your reputation and rating." },
-  { icon: Wine, title: "Restro Bar Pest Control", desc: "Discreet, high-efficacy treatments tailored for bars and pubs to maintain hygiene and protect inventory." },
+  {
+    icon: BugOff,
+    title: "Termite Control",
+    desc: "Deep-penetration treatment that eliminates colonies and safeguards wooden structures for years.",
+    image: "/services/termite.jpg",
+    tag: "Woodwork Protection",
+  },
+  {
+    icon: Bug,
+    title: "Cockroach Control",
+    desc: "Gel-based, odourless treatment reaching hidden nests in kitchens, bathrooms and offices.",
+    image: "/services/cockroach.jpg",
+    tag: "Kitchen & Pantry",
+  },
+  {
+    icon: Wind,
+    title: "Mosquito Treatment",
+    desc: "Fogging + larvicide programs that break the breeding cycle indoors and outdoors.",
+    image: "/services/mosquito.jpg",
+    tag: "Lawn & Garden",
+  },
+  {
+    icon: ShieldAlert,
+    title: "Rat Control",
+    desc: "Bait-station and exclusion strategy to remove rodents without harm to pets or children.",
+    image: "/services/rat.jpg",
+    tag: "Rodent Exclusion",
+  },
+  {
+    icon: Car,
+    title: "Car Anti-Rat Spray",
+    desc: "Specialised herbal spray to protect vehicle wiring and interiors from rodent damage.",
+    image: "/services/car.jpg",
+    tag: "Automotive Engine",
+  },
+  {
+    icon: Home,
+    title: "Residential Pest Control",
+    desc: "Whole-home protection plans tailored to Chennai apartments, villas and independent houses.",
+    image: "/services/residential.jpg",
+    tag: "Homes & Villas",
+  },
+  {
+    icon: Building2,
+    title: "Commercial Pest Control",
+    desc: "Scheduled service contracts for offices, showrooms and retail spaces — zero disruption.",
+    image: "/services/commercial.jpg",
+    tag: "Offices & Retail",
+  },
+  {
+    icon: Factory,
+    title: "Factory Pest Control",
+    desc: "Industrial-grade solutions for warehouses, factories and manufacturing floors.",
+    image: "/services/factory.jpg",
+    tag: "Plants & Warehouses",
+  },
+  {
+    icon: BedDouble,
+    title: "Hotel Pest Control",
+    desc: "Discreet, guest-safe programs meeting hospitality hygiene standards.",
+    image: "/services/hotel.jpg",
+    tag: "Hospitality & Suites",
+  },
+  {
+    icon: Hospital,
+    title: "Hospital Pest Control",
+    desc: "Certified protocols for hospitals and clinics — medical-grade safety compliance.",
+    image: "/services/hospital.jpg",
+    tag: "Clinics & Healthcare",
+  },
+  {
+    icon: GraduationCap,
+    title: "School Pest Control",
+    desc: "Child-safe treatments delivered during off-hours across schools and campuses.",
+    image: "/services/school.jpg",
+    tag: "Schools & Campuses",
+  },
+  {
+    icon: Utensils,
+    title: "Restaurant Pest Control",
+    desc: "HACCP-aligned kitchen treatments protecting your reputation and rating.",
+    image: "/services/restaurant.jpg",
+    tag: "Commercial Kitchens",
+  },
+  {
+    icon: Wine,
+    title: "Restro Bar Pest Control",
+    desc: "Discreet, high-efficacy treatments tailored for bars and pubs to maintain hygiene and protect inventory.",
+    image: "/services/restro-bar.jpg",
+    tag: "Bars & Lounges",
+  },
 ];
 
 function Services() {
@@ -284,15 +362,25 @@ function Services() {
         </Reveal>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {SERVICES.map(({ icon: Icon, title, desc }, i) => (
+          {SERVICES.map(({ icon: Icon, title, desc, image, tag }, i) => (
             <Reveal key={title} delay={(i % 4) * 100}>
-              <div className="card-lift group relative flex h-full flex-col justify-between overflow-hidden rounded-[2rem] border border-border bg-background/50 p-8 hover:border-primary/40 hover:bg-background">
+              <div className="card-lift group relative flex h-full flex-col justify-between overflow-hidden rounded-[2rem] border border-border bg-background/50 p-6 transition-all duration-300 hover:border-primary/40 hover:bg-card">
                 <div className="pointer-events-none absolute -right-16 -top-16 size-40 rounded-full bg-primary/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:animate-pulse group-hover:opacity-100" />
                 <div>
-                  <div className="mb-6 inline-flex size-14 items-center justify-center rounded-2xl border border-border bg-card shadow-sm transition-all duration-500 group-hover:-translate-y-2 group-hover:scale-110 group-hover:rotate-[12deg] group-hover:border-primary/40 group-hover:bg-primary/10 group-hover:shadow-lg group-hover:shadow-primary/20">
-                    <Icon className="size-6 text-foreground transition-all duration-500 group-hover:text-primary" />
+                  <div className="relative mb-5 h-44 w-full overflow-hidden rounded-2xl bg-muted">
+                    <img
+                      src={image}
+                      alt={title}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                    <span className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-black/60 px-3 py-1 text-[11px] font-medium text-white shadow-sm backdrop-blur-md">
+                      <Icon className="size-3 text-primary-light" />
+                      <span>{tag}</span>
+                    </span>
                   </div>
-                  <h4 className="mb-3 text-lg font-bold tracking-tight text-card-foreground transition-colors group-hover:text-primary">{title}</h4>
+                  <h4 className="mb-2 text-lg font-bold tracking-tight text-card-foreground transition-colors group-hover:text-primary">{title}</h4>
                   <p className="mb-6 text-sm leading-relaxed text-muted-foreground">{desc}</p>
                 </div>
                 <a href="#contact" className="mt-auto inline-flex items-center gap-2 font-mono text-xs font-semibold tracking-wide text-primary opacity-80 transition-all hover:opacity-100 group-hover:gap-3">
@@ -306,7 +394,6 @@ function Services() {
     </section>
   );
 }
-
 const HIGHLIGHTS = [
   "Certified Experts",
   "Eco-Friendly Chemicals",
